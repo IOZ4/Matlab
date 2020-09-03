@@ -1773,13 +1773,676 @@ switch 表达式
 
 ​		语句组
 
+​	case 结果表2
+
+​		语句组
+
+·······
+
+​	otherwise
+
+​		语句组
+
+end
+
+```matlab
+x = input('请输入一个数');
+switch fix(x)
+    case 1
+        disp(fix(x));
+    case 2
+        disp(fix(x));
+    otherwise
+        disp('这个数字不好');
+end
+```
+
+#### 输入一个英文单词，判断它是否以元音字母开头。
+
+```matlab
+s = input('请输入一个字母','s');
+switch s(1)
+    case {'A','E','I','O','U','a','e','i','o','u'}
+        disp('它是元音字母');
+    otherwise
+        disp('他不是元音字母');
+end
+```
+
+
+
 ### 3.4for 语句实现循环结构
+
+* 循环结构又称为重复结构，是利用计算机运算速度快以及能进行逻辑控制的特点来重复执行某些操作。
+
+  for 循环变量=表达式1：表达式2：表达式3
+
+  ​	循环语句
+
+  end
+
+  ```matlab
+  for k=2:10
+      disp(k);
+  end
+  ```
+
+  > 循环取的是列向量
 
 ### 3.5while 语句实现循环结构
 
+while 条件
+
+​	循环条件语句
+
+end
+
+```matlab
+n = 1;
+while n<=10
+    n=n+1;
+    disp(n);
+end
+```
+
+> 支持break  和  continue
+
 ### 3.6函数文件的定义与调用
+
+function 输出形参表=函数名（输入形参表)
+
+注释说明部分
+
+函数体语句
+
+调用格式:
+
+​	[输出实参表]=函数名(输入实参表)
+
+​	在调用函数时，函数输入输出参数称为实际参数，简称实参。
+
+```matlab
+function [s,q] = test10(r)
+s = r^2*pi;
+q = 2*2*pi;
+
+```
+
+```matlab
+>> [s,q] = test10(3)
+
+s =
+
+   28.2743
+
+
+q =
+
+   12.5664
+```
+
+
+
+#### 匿名函数
+
+基本格式:
+
+​	丞数句柄变量=@(匿名函数输入参数)匿名函数表达式
+
+```matlab
+>> f = @(x,y) x^2+y^2
+
+f =
+
+  包含以下值的 function_handle:
+
+    @(x,y)x^2+y^2
+
+>> f(3,4)
+
+ans =
+
+    25
+
+```
+
+
 
 ### 3.7函数的递归调用
 
+```matlab
+function [result]=njc(n)
+if n==1
+    result=1;
+else 
+    result=njc(n-1)*n;
+end
+```
+
+
+
 ### 3.8函数参数与变量的作用域
 
+nargin 函数参数的输入个数   预定义变量
+
+nargout 函数输出参数个数  预定义变量
+
+global 变量1 变量2
+
+## 四、Matlab绘图
+
+#### 4.1二维曲线
+
+##### plot函数
+
+```matlab
+xxxxxxxxxx >> a = [1,2,3,4];>> b = [1,2,3,4];>> plot(a,b);>> ca = a+b*ica =   1.0000 + 1.0000i   2.0000 + 2.0000i   3.0000 + 3.0000i   4.0000 + 4.0000i>> plot(ca)>> a = [2,1,6,2];>> plot(a)	matlab
+```
+
+##### 当x是向量，y是矩阵时
+
+* 如果矩阵y的列数等于x的长度，则以向量x为横坐标，以y的每个行向量为纵坐标绘制曲线，曲线的条数等于y的行数。
+
+* 如果矩阵y的行数等于x的长度，则以向量x为横坐标，以y的每个列向量为纵坐标绘制曲线，曲线的条数等于y的列数。
+
+* ```matlab
+  >> x = linspace(0,2*pi,100);
+  >> y = [sin(x);sin(2*x);sin(0.5*x)];
+  >> plot(x,y);
+  ```
+
+##### plot(x, y)函数参数的变化形式
+
+* 当x、y是同型矩阵时以x、y对应列元素为横、纵坐标分别绘制曲线，曲线条数等于矩阵的列数。
+
+  ```matlab
+  >> t = 0:0.01:2*pi;
+  >> t1 = t';
+  >> T = [t1,t1,t1];
+  >> Y = [sin(t1),sin(0.5*t1),sin(2*t1)];
+  >> plot(T,Y);
+  ```
+
+##### 含多个输入参数的plot函数
+
+* plot(x1, y1,x2,y2，…，xn,yn)
+
+* 其中，每一向量对构成一组数据点的横、纵坐标，绘制一条曲线。
+
+  ```matlab
+  >> t = 0:0.01:2*pi;
+  plot(t,sin(t),t,sin(2*t),t,sin(0.5*t));
+  ```
+
+##### 含选项的plot函数
+
+* plot(x, y,选项)
+* 线型  
+
+|  -   |  实线  |
+| :--: | :----: |
+|  ：  |  虚线  |
+|  -.  | 点划线 |
+|  --  | 双划线 |
+
+* 颜色
+
+|  r   | 红色 |
+| :--: | :--: |
+|  g   | 绿色 |
+|  b   | 蓝色 |
+|  w   | 白色 |
+|  k   | 黑色 |
+
+* 数据点标记
+
+|  *   |    星号    |
+| :--: | :--------: |
+|  o   |    圆圈    |
+|  s   |    方块    |
+|  p   |   五角星   |
+|  ^   | 朝上三角形 |
+
+* 
+
+```matlab
+>> x = (0:pi/50:2*pi)';
+>> y1 = 2*exp(-0.5*x)*[-1,1];
+>> y2 = 2*exp(-0.5*x).*sin(2*pi*x);
+>> x1 = 0:0.5:6;
+>> y3 = 2*exp(-0.5*x1).*sin(2*pi*x1);
+>> plot(x,y1,'k:',x,y2,'b--',x1,y3,'rp');
+```
+
+##### fplot函数
+
+* fplot函数的基本用法
+
+  fplot(f, lims,选项)
+
+  * 其中，f代表一个函数，通常采用函数句柄的形式。lims为x轴的取值范围，用二元向量[xmin，xmax]描述，默认值为[-5,5]。选项定义与plot函数相同。
+
+    ```matlab
+    fplot(@(x) sin(1./x),[0,0.02],'b') ;
+    ```
+
+    > fplot 自适应x的间隔
+
+  * 双输入函数参数的用法
+
+    * fplot(funx,funy, tlims,选项)其中，funx、funy代表函数，通常采用函数句柄的形式。tlims为参数函数funx和funy的自变量的取值范围，用二元向量[tmin，tmax]描述。
+
+      ```matlab
+       fplot(@(t) t.*sin(t),@(t) t.*cos(t),[0,10*pi],'r');
+      ```
+
+      
+
+#### 4.2绘制图形的辅助操作
+
+##### 给图形添加标注
+
+* title(图形标题)
+
+  * 在图形标题中使用LaTeX格式控制符
+
+    |       title('y=cos{\omega}t')        | y =Coswt  |
+    | :----------------------------------: | :-------: |
+    |          title('y=e^faxt})           |  y=e axt  |
+    |      title('X\_{1}\geq}X\_{2}')      |   X1≥X2   |
+    | title(\bf y=cos{\omega}t + [fbeta}}) | y=coswt+β |
+
+  * title(图形标题,属性名,属性值)
+
+    ```matlab
+    title('y=cos{\omega}t','Color','r');
+    ```
+
+    ```matlab
+    x = -2*pi:0.05:2*pi;
+    y = sin(x);
+    plot(x,y,'r');
+    title({'MATLAB','y=sin(x)'});
+    ```
+
+    
+
+* xlabel(x轴说明)
+
+  ```matlab
+  xlabel('-2\pi\leqx\leq2\pi')
+  ```
+
+* ylabelly轴说明)
+
+* text(x, y,图形说明)
+
+  ```matlab
+  text(-2*pi,0,'-2\pi');
+  text(3,0.28,'\leftarrow sin(x)');
+  ```
+
+* legend(图例1，图例2，…)
+
+  ```matlab
+  x = linspace(0,2*pi,100);
+  plot(x,[sin(x);sin(2*x);sin(0.5*x)]);
+  legend('sinx','sin(2x)','sin(0.5x)');
+  ```
+
+##### 坐标控制
+
+* axis函数
+  * axis([xmin, xmax,ymin,ymax, zmin,zmax])
+  * axis equal:纵、横坐标轴采用等长刻度
+  * axis square:产生正方形坐标系(默认为矩形)
+  * axis auto:使用默认设置
+  * axis off:取消坐标轴
+  * axis on:显示坐标轴
+* 给坐标系加网格和边框
+  * grid on
+  * grid off
+  * grid
+  * box on
+  * box off
+  * box
+
+##### 图形保持
+
+​	在原有的图形上增添图形
+
+* hold on
+
+* hold off
+
+* hold
+
+  ```matlab
+  t = linspace(0,2*pi,100);
+  x = sin(t);y=cos(t);
+  plot(x,y,'b');
+  hold on;
+  plot(2*x,2*y,'r--');
+  grid on;
+  axis([-2.2,2.2,-2.2,2.2])
+  axis equal
+  ```
+
+##### 图形窗口的分割
+
+subplot(2,2,1)  图形横向排开
+
+#### 4.3其他形式的二维图形
+
+##### 其他坐标系下的二维曲线图
+
+###### 对数坐标
+
+* 半对数曲线图
+
+  * semilogx
+  * semilogy
+
+* 全对数曲线图
+
+  * loglog
+
+  ```matlab
+  x = 0:0.1:10;
+  y = 1./x;
+  subplot(2,2,1);
+  plot(x,y);
+  title('x y');
+  subplot(2,2,2);
+  semilogx(x,y)
+  title('semilogx');
+  subplot(2,2,3);
+  semilogy(x,y);
+  title('semilogy');
+  subplot(2,2,4);
+  loglog(x,y);
+  title('lohlog');
+  ```
+
+###### 极坐标
+
+polar(theta,rho,选项)
+
+其中,theta为极角，rho为极径，选项的内容与plot函数相同。
+
+* ```matlab
+  t = 0:pi/100:2*pi;
+  r = 1-sin(t);
+  subplot(1,2,1);
+  polar(t,r);
+  subplot(1,2,2);
+  t1 = t-pi/2;
+  r1 = 1-sin(t1);
+  polar(t,r1);
+  ```
+
+##### 统计图
+
+###### 条形图
+
+* bar函数
+
+  bar（y,style)   style:grouope 或者  stacked
+
+  ```matlab
+  y = [1,2,3,4;1,2,1,2;5,3,6,1];
+  x = [2015,2016,2017];
+  subplot(1,2,1);
+  bar(x,y)
+  title('Grouped');
+  
+  subplot(1,2,2);
+  bar(x,y,'stacked');
+  title('Stacked');
+  ```
+
+* barh函数  (水平条形图)
+
+###### 直方图
+
+* hist函数
+
+  * hist(y,x) y为统计的数据  x为标量时为划分的个数  为向量时为中位数
+
+    ```matlab
+    y = randn(1,500);
+    subplot(1,2,1);
+    hist(y);
+    title('y');
+    subplot(1,2,2);
+    x = -3:0.2:3;
+    hist(y,x);
+    title('指定区间中心点的直方图');
+    ```
+
+    
+
+* rose函数
+
+  ```matlab
+  y = randn(1,500);
+  theta = pi*y;
+  rose(theta);
+  title('在极坐标下的直方图');
+  ```
+
+###### 饼图
+
+* 扇形图 pie()
+
+  pie(x, explode)
+
+  其中，参数x存储待统计数据，选项explode控制图块的显示模式。
+
+  ```matlab
+  y = [12,3,34,2,1];
+  ex = [0,0,0,0,1];
+  pie(y,ex);
+  legend('优秀','良好','中等','及格','不及格','location','eastoutside');
+  ```
+
+* 面积图  area()
+
+###### 散点图
+
+* scatter函数：散点图
+
+  scatter(x, y,选项, 'filled')
+
+  参数x、y用于定位数据点，选项用于指定线型、颜色、数据点标记。
+
+  ```matlab
+  t = 0:pi/50:2*pi;
+  x = 16*sin(t).^3;
+  y = 13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t);
+  scatter(x,y,'rd','filled');
+  ```
+
+* stairs函数：阶梯图
+
+* stem函数：杆图
+
+##### 矢量图形
+
+* compassK数:罗盘图
+
+* feather函数:羽毛图
+
+* quiver函数:箭头图
+
+  * quiver(x, y,u, v)
+  * 其中，(x, y)指定矢量起点，(u, v)指定矢量终点。
+
+  ```matlab
+  A = [4,5];B = [-10,0];C=A+B;
+  hold on;
+  quiver(0,0,A(1),A(2));
+  quiver(0,0,B(1),B(2));
+  quiver(0,0,C(1),C(2));
+  text(A(1),A(2),'A');
+  text(B(1),B(2),'B');
+  text(C(1),C(2),'C');
+  axis([-12,6,-1,6]);
+  grid on;
+  ```
+
+  
+
+#### 4.4三维曲线
+
+##### plot3函数
+
+plot3(x,y,z)
+
+其中，参数x、y、z组成一组曲线的坐标。
+
+```matlab
+x=[0.2,1.8,2.5];
+y=[1.3,2.8,1.1];
+z=[0.4,1.2,1.6];
+plot3(x, y,z)
+grid on;
+axis([0,3,1,3,0,2]);
+```
+
+plot3(x, y,z)
+
+* 参数x、y、z是同型矩阵。  : 列对应
+
+* 参数x、y、z中有向量，也有矩阵。 可列对应   也可行对应
+
+  ```matlab
+  t = 1:10;
+  t1 = t.';
+  x = t1;
+  y = [t1,t1,t1];
+  z = t1;
+  plot3(x,y,z);
+  grid on
+  ```
+
+  ```matlab
+  t = 1:10;
+  t1 = t.';
+  x = t;
+  y = [t;t;t];
+  z = t;
+  plot3(x,y,z);
+  grid on
+  ```
+
+* 含多组输入参数的plot3函数
+
+  * plot3(x1, y1, z1, x2, y2, z2, .... xn, yn, zn)每一-组x、y、z向量构成一-组数据点的坐标，绘制一条曲线。
+
+##### fplot3函数
+
+fplot3(funx, funy,funz, tlims)
+
+其中，funx、funy、funz代表定义曲线x、y、z坐标的函数，通常采用函数句柄的形式。tlims为参数函数自变量的取值范围，用二元向量[tmin，tmax]描述﹐默认为[-5，5]。
+
+#### 4.5三维曲面
+
+1. 平面网格数据的生成
+
+   * 利用矩阵运算生成
+
+     ```matlab
+     x = 2:6;
+     y = (3:8).';
+     X = ones(size(y))*x;
+     Y = y*ones(size(x));
+     
+     ```
+
+   * 利用meshgrid函数
+
+     [X，Y=meshgrid(x, y);
+
+     其中，参数x、y为向量，存储网格点坐标的X、Y为矩阵。
+
+     ```matlab
+     x = 2:6;
+     y = 3:8;
+     [X,Y] = meshgrid(x,y);
+     Z = randn(size(X));
+     plot3(X,Y,Z);
+     grid on
+     ```
+
+   * mesh函数  ：三维网格图
+
+   * 其中，x、y是网格坐标矩阵，z是网格点上的高度矩阵，c用于指定在不同高度下的曲面颜色。
+
+     mesh(x, y，z,c)
+
+     ```matlab
+     t = -2:0.1:2;
+     [X,Y] = meshgrid(t);
+     Z = X.*exp(-X.^2-Y.^2);
+     subplot(1,3,1);
+     mesh(X,Y,Z);
+     title('mesh');
+     subplot(1,3,2);
+     surf(X,Y,Z);
+     title('surf');
+     subplot(1,3,3);
+     plot3(X,Y,Z);
+     title('plot3');
+     grid on;
+     ```
+
+   * surf函数 ：三维曲面图
+
+     surf(x,y,z，c)
+
+   * mesh函数和surf&数的其他调用格式:
+
+     mesh(z, c)
+
+     surf(z, c)
+
+     当x、y省略时，z矩阵的第2维下标当作x轴坐标，z矩阵的第1维下标当作y轴坐标。
+
+   * 带等高线的三维网格曲面函数meshc
+
+   * 带底座的三维网格曲面函数meshz
+
+   * 具有等高线的曲面函数surfc
+
+   * 具有光照效果的曲面函数surf
+
+2. sphere函数(三维球面)
+
+   [x,y,z]=sphere(n)
+
+3. cylinder函数（三维圆柱） R表示半径 n光滑程度
+
+   [×, y, z]=cylinder(R, n)
+
+   >sphere  和 cylinder 常作为mesh 和surf 的参数
+
+1. fmesh函数和fsurf函数
+
+   fsurf(funx, funy, funz, uvlims)
+
+   fmesh(funx, funy, funz, uvlims)
+
+   其中,funx、funy、funz代表定义曲面x、y、z坐标的函数，通常采用函数句柄的形式。uvlims为funx、funy和funz的自围，用4元向量[umin,umax,vmin, vmax]描述，变量的取值范默认为[-5,5,-5,5]。
+
+   
+
+#### 4.6图形修饰处理
+
+##### 视点处理
+
+##### 色彩处理
+
+##### 裁剪处理
+
+#### 4.7交互式绘图工具
