@@ -2758,5 +2758,24 @@ Y=interp1[X,Y,X1,method)
 
 #### 曲线拟合
 
+polyfit( ):多项式拟合函数。
+
+调用格式:
+
+​	(1) P=polyfit(X,Y,m)
+
+​	( 2)[P,S]=polyfit(x,Y,m)
+
+​	(3 )[P,S,mu]=polyfit(x,Y,m)
+
+根据样本数据X和Y，产生一个m次多项式P及其在采样点误差数据S，mu是一个二元向量，mu(1)是mean(X),而mu(2)是std(X)。
+
 #### 曲线拟合应用举例
+
+```matlab
+x = 1950:10:2010;
+y = [150.7 179.3 203.2 226.5 248.7 281.4 308.7];
+p = polyfit(x,y,2);
+plot(x,y,'*',x,polyval(p,x));
+```
 
